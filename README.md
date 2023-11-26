@@ -1,3 +1,3 @@
-# Awesome Links - part-1
+# flavor-forecast
 
-This branch has the same starting point as [this article](https://prisma.io/blog/fullstack-nextjs-graphql-prisma-oklidw1rhw)
+Site to present ice cream flavors of the day
