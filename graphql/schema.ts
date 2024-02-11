@@ -1,21 +1,7 @@
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
-import { FlavorQuery } from "schema/Flavor/flavor.query";
-import { FlavorMutation } from "schema/Flavor/flavor.mutation";
-export const typeDefs = `
-  type Link {
-    id: ID
-    title: String
-    description: String
-    url: String
-    category: String
-    imageUrl: String
-    users: [String]
-  }
-
-  type Query {
-    links: [Link]!
-  }
-`;
+import { FlavorQuery } from "graphql/Flavor/flavor.query";
+import { FlavorMutation } from "graphql/Flavor/flavor.mutation";
+import { builder } from "graphql/builder";
 const Query = new GraphQLObjectType({
   name: "Query",
   description: "The base query",
@@ -44,7 +30,9 @@ const Mutation = new GraphQLObjectType({
   },
 });
 
-export const Schema = new GraphQLSchema({
-  query: Query,
-  mutation: Mutation,
-});
+// export const Schema = new GraphQLSchema({
+//   query: Query,
+//   mutation: Mutation,
+// });
+
+export const schema = builder.toSchema();

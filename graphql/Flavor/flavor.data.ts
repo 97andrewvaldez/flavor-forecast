@@ -1,4 +1,4 @@
-import { FlavorType } from "schema/Flavor/flavor.type";
+import { FlavorType } from "graphql/Flavor/flavor.type";
 export const findFlavor = (flavor: string): FlavorType => {
   return {
     id: 1,

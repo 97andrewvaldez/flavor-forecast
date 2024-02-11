@@ -1,12 +1,12 @@
-import { createSchema, createYoga } from "graphql-yoga";
+import { createYoga } from "graphql-yoga";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Schema } from "schema/schema";
+import { schema } from "graphql/schema";
 
 export default createYoga<{
   req: NextApiRequest;
   res: NextApiResponse;
 }>({
-  schema: Schema,
+  schema: schema,
   graphqlEndpoint: "/api/graphql",
 });
 

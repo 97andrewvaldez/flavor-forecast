@@ -7,8 +7,8 @@ import {
   GraphQLString,
 } from "graphql";
 
-import { Flavor } from "schema/Flavor/flavor.type";
-import { findFlavor } from "schema/Flavor/falvor.data";
+import { Flavor } from "graphql/Flavor/flavor.type";
+import { findFlavor } from "graphql/Flavor/flavor.data";
 
 const GetFlavorByName: GraphQLFieldConfig<any, any, any> = {
   type: Flavor,

@@ -4,7 +4,7 @@ import {
   GraphQLString,
   GraphQLInt,
 } from "graphql";
-import { Flavor } from "schema/Flavor/flavor.type";
+import { Flavor } from "graphql/Flavor/flavor.type";
 const CreateFlavor: GraphQLFieldConfig<any, any, any> = {
   type: Flavor,
   description: Flavor.description,

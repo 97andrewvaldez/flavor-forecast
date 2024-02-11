@@ -23,13 +23,19 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "**/**/*.ts",
+    "**/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx"
   ],
+  "allowUmdGlobalAccess": true,
   "exclude": [
     "node_modules"
   ],
-  "ts-node": { 
+  "ts-node": {
     "compilerOptions": {
+      "jsx": "react-jsx",
       "module": "CommonJS"
     }
   }
