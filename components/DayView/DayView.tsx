@@ -7,7 +7,26 @@ import {
   StackDivider,
   Text,
 } from "@chakra-ui/react";
+import { FlavorDisplay } from "components/DayView/FlavorDisplay";
 
+const mockData = [
+  {
+    title: "Culvers",
+    flavor: "Chocolate chip mint - a tasty snack",
+  },
+  {
+    title: "Oscars",
+    flavor: "Chocolate chip cookie dough - a delightful treat",
+  },
+  {
+    title: "Kopps",
+    flavor: "German Apple Struesel - your favorite cold dessert",
+  },
+  {
+    title: "Franks",
+    flavor: "Buffalo chicken - a real zinger",
+  },
+];
 const DayView = () => {
   return (
     <Box textAlign="center" mt="3">
@@ -18,30 +37,13 @@ const DayView = () => {
 
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
-            <Box>
-              <Heading size="xs" textTransform="uppercase">
-                Kopps
-              </Heading>
-              <Text pt="2" fontSize="sm">
-                View a summary of all your clients over the last month.
-              </Text>
-            </Box>
-            <Box>
-              <Heading size="xs" textTransform="uppercase">
-                Oscars
-              </Heading>
-              <Text pt="2" fontSize="sm">
-                Check out the overview of your clients.
-              </Text>
-            </Box>
-            <Box>
-              <Heading size="xs" textTransform="uppercase">
-                Culvers
-              </Heading>
-              <Text pt="2" fontSize="sm">
-                See a detailed analysis of all your business clients.
-              </Text>
-            </Box>
+            {mockData.map((flavor) => (
+              <FlavorDisplay
+                key={flavor.title}
+                title={flavor.title}
+                flavor={flavor.flavor}
+              />
+            ))}
           </Stack>
         </CardBody>
       </Card>

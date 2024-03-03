@@ -1,42 +1,25 @@
-import {
-  GraphQLFieldConfig,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLInt,
-} from "graphql";
-import { Flavor } from "graphql/Flavor/flavor.type";
-const CreateFlavor: GraphQLFieldConfig<any, any, any> = {
-  type: Flavor,
-  description: Flavor.description,
-  args: {
-    name: {
-      type: GraphQLString,
-      description: "The name of the flavor",
-    },
-    description: {
-      type: GraphQLString,
-      description: "The description of the flavor",
-    },
-    restaurantId: {
-      type: GraphQLInt,
-      description: "The id of the restaurant",
-    },
-  },
-  resolve: (source, args) => {
-    const flavor = {
-      id: 1,
-      name: args.name,
-      description: args.description,
-      restaurantId: args.restaurantId,
-    };
-    return flavor;
-  },
-};
+import { builder } from "graphql/builder";
+import { createFlavor } from "graphql/Flavor";
 
-export const FlavorMutation: GraphQLObjectType = new GraphQLObjectType({
-  name: "FlavorMutation",
-  description: "Flavor Mutations",
-  fields: () => ({
-    addFlavor: CreateFlavor,
-  }),
-});
+// builder.mutationFields((t) => ({
+//   createFlavor: t.prismaField({
+//     type: "Flavor",
+//     description: "Create a new flavor",
+//     args: {
+//       name: t.arg.string({ required: true }),
+//       description: t.arg.string({ required: true }),
+//       restaurantId: t.arg.int({ required: true }),
+//     },
+//     resolve: (query, _parent, args) => {
+//       const { name, description, restaurantId } = args;
+//       return prisma.flavor.create({
+//         ...query,
+//         data: {
+//           name,
+//           description,
+//           restaurantId,
+//         },
+//       });
+//     },
+//   }),
+// }));

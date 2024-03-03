@@ -1,42 +1,22 @@
-import {
-  GraphQLFieldConfig,
-  GraphQLInt,
-  GraphQLList,
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLString,
-} from "graphql";
-
-import { Flavor } from "graphql/Flavor/flavor.type";
 import { findFlavor } from "graphql/Flavor/flavor.data";
+import { builder } from "graphql/builder";
 
-const GetFlavorByName: GraphQLFieldConfig<any, any, any> = {
-  type: Flavor,
-  description: Flavor.description,
-  args: {
-    flavor: {
-      type: GraphQLString,
-      description: "A name or description to search for",
-    },
-  },
-  resolve: (source, args) => {
-    return findFlavor(args.flavor);
-  },
-};
-
-const GetAllFlavors: GraphQLFieldConfig<any, any, any> = {
-  type: new GraphQLList(Flavor),
-  description: "Get all flavors",
-  resolve: () => {
-    return findFlavor("test");
-  },
-};
-
-export const FlavorQuery = new GraphQLObjectType({
-  name: "FlavorQuery",
-  description: "Queries to get flavors",
-  fields: () => ({
-    flavor: GetFlavorByName,
-    flavors: GetAllFlavors,
+builder.queryFields((t) => ({
+  flavors: t.prismaField({
+    description: "Get all flavors",
+    type: ["Flavor"],
+    resolve: (query, _parent, args, _ctx, _info) =>
+      prisma.flavor.findMany({ ...query, ...args }),
   }),
-});
+  findFlavorByName: t.prismaField({
+    type: ["Flavor"],
+    args: {
+      name: t.arg({
+        type: "String",
+        required: true,
+      }),
+    },
+    resolve: (query: any, _parent, args: any, _ctx, _info) =>
+      findFlavor(args.name),
+  }),
+}));

@@ -1,41 +1,31 @@
-import {builder } from "graphql/builder";
+import { builder } from "graphql/builder";
 
 export type FlavorType = {
   id: number;
   name: string;
-  description: string;
+  description: string | null;
   restaurantId: number;
+  dateAdded: Date;
 };
 
-// const Flavor = new GraphQLObjectType({
-//   name: "Flavor",
-//   description: "A flavor",
-//   fields: () => ({
-//     id: {
-//       type: GraphQLInt,
-//       description: "The id of the flavor",
-//     },
-//     name: {
-//       type: GraphQLString,
-//       description: "The name of the flavor",
-//     },
-//     description: {
-//       type: GraphQLString,
-//       description: "The description of the flavor",
-//     },
-//     restaurantId: {
-//       type: GraphQLInt,
-//       description: "The id of the restaurant",
-//     },
-//   }),
-// });
+export type FindFlavorsQuery = {
+  include?: any;
+  select?: any;
+};
 
-builder.prismaObject("Flavor", {
+export type FindFlavorArgs = {
+  name: string;
+};
+//can also do t.relation for relationships
+const Flavor = builder.prismaObject("Flavor", {
   fields: (t) => ({
     id: t.exposeID("id"),
     name: t.exposeString("name"),
     description: t.exposeString("description", { nullable: true }),
     restaurantId: t.exposeInt("restaurantId"),
   }),
+  description: "A flavor",
+  name: "Flavor",
 });
 
+export { Flavor };

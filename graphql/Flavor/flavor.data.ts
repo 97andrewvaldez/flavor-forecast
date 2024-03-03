@@ -1,23 +1,36 @@
 import { FlavorType } from "graphql/Flavor/flavor.type";
-export const findFlavor = (flavor: string): FlavorType => {
-  return {
-    id: 1,
-    name: "Vanilla",
-    description: "A flavor",
-    restaurantId: 1,
-  };
+const findFlavor = (flavor: string = "") => {
+  const flavors = prisma.flavor.findMany({
+    where: {
+      name: {
+        contains: flavor,
+      },
+    },
+  });
+  if (flavors) {
+    return flavors;
+  } else {
+    throw Error("Flavor not found");
+  }
 };
 
-export const CreateFlavor = (
+const createFlavor = async (
   name: string,
   description: string,
   restaurantId: number
-): FlavorType => {
-  const flavor = {
-    id: 1,
-    name: name,
-    description: description,
-    restaurantId: restaurantId,
-  };
-  return flavor;
+) => {
+  const createdFlavor = await prisma.flavor.create({
+    data: {
+      name,
+      description,
+      restaurantId,
+    },
+  });
+  if (createdFlavor) {
+    return createdFlavor;
+  } else {
+    throw Error("Flavor not created");
+  }
 };
+
+export { findFlavor, createFlavor };

@@ -1,6 +1,5 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString } from "graphql";
 import { builder } from "graphql/builder";
-import { GraphQLString } from "graphql";
 
 export type FlavorOfTheDay = {
   id: number;
@@ -26,7 +25,6 @@ export type FlavorOfTheDay = {
 //     },
 //   }),
 // });
-
 
 builder.prismaObject("FlavorsOfTheDay", {
   fields: (t) => ({

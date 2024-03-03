@@ -4,7 +4,6 @@ import { DayView } from "components/DayView";
 import { WeekView } from "components/WeekView";
 import { MonthView } from "components/MonthView";
 import { useState } from "react";
-import { Fade, ScaleFade, Slide, SlideFade, Collapse } from "@chakra-ui/react";
 
 type ViewType = "Day" | "Week" | "Year";
 const tabIndexMap = {
@@ -21,7 +20,7 @@ const Home = () => {
         <TabList mb="1em">
           <Tab sx={{ color: "blue.100" }}>Day</Tab>
           <Tab sx={{ color: "blue.100" }}>Week</Tab>
-          <Tab sx={{ color: "blue.100" }}>Year</Tab>
+          <Tab sx={{ color: "blue.100" }}>Month</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
