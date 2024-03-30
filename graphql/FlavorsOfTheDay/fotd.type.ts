@@ -1,10 +1,12 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString } from "graphql";
 import { builder } from "graphql/builder";
+import { FlavorType } from "graphql/Flavor/flavor.type";
 
 export type FlavorOfTheDay = {
   id: number;
   date: string;
   flavorId: number;
+  flavor: FlavorType;
 };
 
 // export const FlavorOfTheDay = new GraphQLObjectType({
@@ -31,5 +33,6 @@ builder.prismaObject("FlavorsOfTheDay", {
     id: t.exposeID("id"),
     date: t.exposeString("date"),
     flavorId: t.exposeInt("flavorId"),
+    flavor: t.relation("flavor"),
   }),
 });

@@ -5,11 +5,13 @@ builder.queryFields((t) => ({
   flavors: t.prismaField({
     description: "Get all flavors",
     type: ["Flavor"],
+
     resolve: (query, _parent, args, _ctx, _info) =>
       prisma.flavor.findMany({ ...query, ...args }),
   }),
   findFlavorByName: t.prismaField({
     type: ["Flavor"],
+    nullable: true,
     args: {
       name: t.arg({
         type: "String",

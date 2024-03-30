@@ -1,3 +1,4 @@
+import { gql, useQuery } from "@apollo/client";
 import { Heading, Box } from "@chakra-ui/react";
 import {
   Card,
@@ -8,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FlavorDisplay } from "components/DayView/FlavorDisplay";
+import { FlavorOfTheDay } from "graphql/FlavorsOfTheDay";
 
 const mockData = [
   {
@@ -27,7 +29,27 @@ const mockData = [
     flavor: "Buffalo chicken - a real zinger",
   },
 ];
+const getFlavorOfTheDay = gql`
+  {
+    flavorsOfTheDay(startDate: "2021-01-01", endDate: "2022-01-01") {
+      id
+      date
+      flavor {
+        description
+        restaurant {
+          name
+        }
+      }
+    }
+  }
+`;
 const DayView = () => {
+  const { data, loading, error } = useQuery(getFlavorOfTheDay);
+
+  if (loading) return <p>Loading...</p>;
+
+  if (error) return <p>Oh no... {error.message}</p>;
+  console.log("DATA: ", data);
   return (
     <Box textAlign="center" mt="3">
       <Card bg="gray.500">
@@ -37,13 +59,16 @@ const DayView = () => {
 
         <CardBody>
           <Stack divider={<StackDivider />} spacing="4">
-            {mockData.map((flavor) => (
-              <FlavorDisplay
-                key={flavor.title}
-                title={flavor.title}
-                flavor={flavor.flavor}
-              />
-            ))}
+            {data.flavorsOfTheDay.map(
+              (fotd: FlavorOfTheDay) =>
+                (
+                  <FlavorDisplay
+                    key={fotd.flavor.id}
+                    title={fotd.flavor.restaurant.name}
+                    flavor={fotd.flavor.description}
+                  />
+                ) ?? null
+            )}
           </Stack>
         </CardBody>
       </Card>

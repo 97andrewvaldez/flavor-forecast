@@ -1,11 +1,13 @@
+import { RestaurantType } from "graphql/Restaurant";
 import { builder } from "graphql/builder";
 
 export type FlavorType = {
   id: number;
   name: string;
-  description: string | null;
+  description: string;
   restaurantId: number;
   dateAdded: Date;
+  restaurant: RestaurantType;
 };
 
 export type FindFlavorsQuery = {
@@ -23,6 +25,7 @@ const Flavor = builder.prismaObject("Flavor", {
     name: t.exposeString("name"),
     description: t.exposeString("description", { nullable: true }),
     restaurantId: t.exposeInt("restaurantId"),
+    restaurant: t.relation("restaurant"),
   }),
   description: "A flavor",
   name: "Flavor",

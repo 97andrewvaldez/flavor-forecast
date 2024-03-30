@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString } from "graphql";
 import { builder } from "graphql/builder";
-
+import { Region } from "graphql/Region/region.type";
 export type RestaurantType = {
   id: number;
   name: string;
@@ -9,6 +9,7 @@ export type RestaurantType = {
   url: string;
   flavorOfDayUrl: string;
   regionId: number;
+  region: Region;
   dateAdded: Date;
 };
 
@@ -21,5 +22,6 @@ builder.prismaObject("Restaurant", {
     url: t.exposeString("url", { nullable: true }),
     flavorOfDayUrl: t.exposeString("flavorOfDayUrl"),
     regionId: t.exposeInt("regionId"),
+    region: t.relation("region"),
   }),
 });
